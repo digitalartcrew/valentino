@@ -507,49 +507,64 @@
     .stream-btn.apple { background: linear-gradient(135deg, #fc3c44, #fb0051); color: #fff; }
     .stream-btn.youtube { background: #ff0000; color: #fff; }
 
-    /* ─── Songs / Previews ──────────────────────────────────── */
+    /* ─── Songs / Album Cards ───────────────────────────────── */
     #songs { background: var(--black); }
     .songs-header { margin-bottom: 3rem; }
     .songs-header .section-title { margin: .6rem 0 0; }
 
-    /* Latest album full embed */
-    .album-embed-wrap {
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      margin-bottom: 3.5rem;
-    }
-    .album-embed-wrap iframe {
-      display: block;
-      width: 100%;
-      border: none;
-    }
-
-    /* Album catalog grid */
-    .albums-subhead {
-      font-family: var(--font-head);
-      font-size: .65rem; font-weight: 700;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
     .albums-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1.25rem;
     }
     .album-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 4px;
       overflow: hidden;
-      transition: border-color var(--transition), transform var(--transition);
+      transition: transform var(--transition), border-color var(--transition);
     }
-    .album-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .album-card iframe {
-      display: block;
-      width: 100%;
-      border: none;
+    .album-card:hover { transform: translateY(-3px); border-color: rgba(212,175,55,.4); }
+    .album-art-placeholder {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #1a1a0a, #111108);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: .75rem;
+      position: relative; overflow: hidden;
+    }
+    .album-art-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(212,175,55,.09) 0%, transparent 70%);
+    }
+    .album-art-placeholder svg { fill: rgba(212,175,55,.35); width: 36px; height: 36px; }
+    .album-art-placeholder span {
+      font-family: var(--font-head); font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(212,175,55,.45); text-align: center; padding: 0 .75rem;
+    }
+    .album-card-info { padding: 1rem; }
+    .album-card-title {
+      font-family: var(--font-head); font-weight: 600; font-size: .92rem;
+      text-transform: uppercase; letter-spacing: .04em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-bottom: .25rem;
+    }
+    .album-card-meta { font-size: .62rem; color: var(--muted); margin-bottom: .85rem; }
+    .album-card-btn {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .6rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: .45rem .9rem; border-radius: 4px;
+      width: 100%; justify-content: center;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .album-card-btn:hover { background: rgba(212,175,55,.1); border-color: var(--gold); color: var(--gold); }
+    @media (max-width: 480px) {
+      .albums-grid { grid-template-columns: 1fr 1fr; }
     }
 
     /* ─── Connect ───────────────────────────────────────────── */
@@ -793,54 +808,86 @@
         <div class="divider-gold"></div>
       </div>
 
-      <!-- Tino Brown — full album embed with all tracks + previews -->
-      <div class="album-embed-wrap reveal">
-        <iframe
-          src="https://embed.music.apple.com/us/album/tino-brown/1768837023?theme=dark"
-          height="450"
-          allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-        ></iframe>
-      </div>
-
-      <!-- More Albums -->
-      <p class="albums-subhead reveal">More Albums</p>
       <div class="albums-grid">
 
+        <!-- Tino Brown -->
         <div class="album-card reveal reveal-delay-1">
-          <iframe
-            src="https://embed.music.apple.com/us/album/playa-from-the-chi/1701838892?theme=dark"
-            height="175"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          ></iframe>
+          <div class="album-art-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>Tino Brown</span>
+          </div>
+          <div class="album-card-info">
+            <div class="album-card-title">Tino Brown</div>
+            <div class="album-card-meta">Album &bull; 2024 &bull; Valentino Good Energy</div>
+            <a href="https://music.apple.com/us/album/tino-brown/1768837023" target="_blank" class="album-card-btn">
+              <svg width="11" height="11" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-36.8-155.8-109.4C46.7 727.8 1 542.4 1 373.8c0-259.6 170-397 337.5-397 88.2 0 161.5 58.2 216.6 58.2 52.3 0 135.1-61.7 236.7-61.7 37.2 0 161.5 3.2 247.2 120.3zM459.9 102.3c23.7-29 39.5-70.4 39.5-111.8 0-5.8-.6-11.6-1.3-17.3-36.2 1.4-79.6 24.4-106.6 55.3-21.8 25-42.8 66.9-42.8 109.4 0 6.4.6 12.8 1.3 18.2 3.8.6 7.7 1.3 11.5 1.3 33.2 0 73.4-22.4 98.4-54.1z"/></svg>
+              Listen on Apple Music
+            </a>
+          </div>
         </div>
 
+        <!-- Playa From The Chi -->
         <div class="album-card reveal reveal-delay-2">
-          <iframe
-            src="https://embed.music.apple.com/us/album/829/1642968975?theme=dark"
-            height="175"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          ></iframe>
+          <div class="album-art-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>Playa From<br/>The Chi</span>
+          </div>
+          <div class="album-card-info">
+            <div class="album-card-title">Playa From The Chi</div>
+            <div class="album-card-meta">Album &bull; 2023 &bull; Valentino Good Energy</div>
+            <a href="https://music.apple.com/us/album/playa-from-the-chi/1701838892" target="_blank" class="album-card-btn">
+              <svg width="11" height="11" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-36.8-155.8-109.4C46.7 727.8 1 542.4 1 373.8c0-259.6 170-397 337.5-397 88.2 0 161.5 58.2 216.6 58.2 52.3 0 135.1-61.7 236.7-61.7 37.2 0 161.5 3.2 247.2 120.3zM459.9 102.3c23.7-29 39.5-70.4 39.5-111.8 0-5.8-.6-11.6-1.3-17.3-36.2 1.4-79.6 24.4-106.6 55.3-21.8 25-42.8 66.9-42.8 109.4 0 6.4.6 12.8 1.3 18.2 3.8.6 7.7 1.3 11.5 1.3 33.2 0 73.4-22.4 98.4-54.1z"/></svg>
+              Listen on Apple Music
+            </a>
+          </div>
         </div>
 
+        <!-- 829 -->
         <div class="album-card reveal reveal-delay-3">
-          <iframe
-            src="https://embed.music.apple.com/us/album/eagles-dont-fly-with-pigeons/1498883144?theme=dark"
-            height="175"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          ></iframe>
+          <div class="album-art-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>829</span>
+          </div>
+          <div class="album-card-info">
+            <div class="album-card-title">829</div>
+            <div class="album-card-meta">Album &bull; 2022 &bull; Valentino Good Energy</div>
+            <a href="https://music.apple.com/us/album/829/1642968975" target="_blank" class="album-card-btn">
+              <svg width="11" height="11" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-36.8-155.8-109.4C46.7 727.8 1 542.4 1 373.8c0-259.6 170-397 337.5-397 88.2 0 161.5 58.2 216.6 58.2 52.3 0 135.1-61.7 236.7-61.7 37.2 0 161.5 3.2 247.2 120.3zM459.9 102.3c23.7-29 39.5-70.4 39.5-111.8 0-5.8-.6-11.6-1.3-17.3-36.2 1.4-79.6 24.4-106.6 55.3-21.8 25-42.8 66.9-42.8 109.4 0 6.4.6 12.8 1.3 18.2 3.8.6 7.7 1.3 11.5 1.3 33.2 0 73.4-22.4 98.4-54.1z"/></svg>
+              Listen on Apple Music
+            </a>
+          </div>
         </div>
 
+        <!-- Eagles Don't Fly with Pigeons -->
         <div class="album-card reveal reveal-delay-4">
-          <iframe
-            src="https://embed.music.apple.com/us/album/godflow/1167502822?theme=dark"
-            height="175"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          ></iframe>
+          <div class="album-art-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>Eagles Don't<br/>Fly w/ Pigeons</span>
+          </div>
+          <div class="album-card-info">
+            <div class="album-card-title">Eagles Don't Fly w/ Pigeons</div>
+            <div class="album-card-meta">Album &bull; 2020 &bull; Valentino Good Energy</div>
+            <a href="https://music.apple.com/us/album/eagles-dont-fly-with-pigeons/1498883144" target="_blank" class="album-card-btn">
+              <svg width="11" height="11" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-36.8-155.8-109.4C46.7 727.8 1 542.4 1 373.8c0-259.6 170-397 337.5-397 88.2 0 161.5 58.2 216.6 58.2 52.3 0 135.1-61.7 236.7-61.7 37.2 0 161.5 3.2 247.2 120.3zM459.9 102.3c23.7-29 39.5-70.4 39.5-111.8 0-5.8-.6-11.6-1.3-17.3-36.2 1.4-79.6 24.4-106.6 55.3-21.8 25-42.8 66.9-42.8 109.4 0 6.4.6 12.8 1.3 18.2 3.8.6 7.7 1.3 11.5 1.3 33.2 0 73.4-22.4 98.4-54.1z"/></svg>
+              Listen on Apple Music
+            </a>
+          </div>
+        </div>
+
+        <!-- Godflow -->
+        <div class="album-card reveal reveal-delay-1">
+          <div class="album-art-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>Godflow</span>
+          </div>
+          <div class="album-card-info">
+            <div class="album-card-title">Godflow</div>
+            <div class="album-card-meta">Album &bull; 2016 &bull; Valentino Good Energy</div>
+            <a href="https://music.apple.com/us/album/godflow/1167502822" target="_blank" class="album-card-btn">
+              <svg width="11" height="11" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-36.8-155.8-109.4C46.7 727.8 1 542.4 1 373.8c0-259.6 170-397 337.5-397 88.2 0 161.5 58.2 216.6 58.2 52.3 0 135.1-61.7 236.7-61.7 37.2 0 161.5 3.2 247.2 120.3zM459.9 102.3c23.7-29 39.5-70.4 39.5-111.8 0-5.8-.6-11.6-1.3-17.3-36.2 1.4-79.6 24.4-106.6 55.3-21.8 25-42.8 66.9-42.8 109.4 0 6.4.6 12.8 1.3 18.2 3.8.6 7.7 1.3 11.5 1.3 33.2 0 73.4-22.4 98.4-54.1z"/></svg>
+              Listen on Apple Music
+            </a>
+          </div>
         </div>
 
       </div>
